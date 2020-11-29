@@ -33,7 +33,7 @@
   See it in action:
   https://robertsicher.github.io/template_engine/
   
-  ![An image of it in action ](./application-image.png)
+  ![An image of it in action ](./application-image.PNG)
   
   
   ## Author
