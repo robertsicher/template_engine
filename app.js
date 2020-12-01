@@ -6,12 +6,16 @@ const inquirer = require("inquirer");
 const path = require("path");
 const fs = require("fs");
 
-const OUTPUT_DIR = path.resolve(__dirname, "output");
-const outputPath = path.join(OUTPUT_DIR, "team.html");
 
+//Output
+const OUTPUT_DIR = path.resolve(__dirname, "output");
+const outputPath = path.join(OUTPUT_DIR, "employees.html");
+
+//Renderer
 const render = require("./lib/htmlRenderer");
 const questions = require("./lib/questions");
 
+//Check for all of the input questions
 const {
   roleInput,
   employeeQuestions,
@@ -28,6 +32,7 @@ let totalEmployees = 0;
 //Manager function
 function managerPrompt() {
   inquirer.prompt(managerInput).then((answers) => {
+    //create a new manager
     const manager = new Manager(
       answers.name,
       answers.id,
@@ -39,7 +44,7 @@ function managerPrompt() {
   });
 }
 
-//Find the p
+//Employee Poisition Picker
 function rolePrompt() {
   inquirer.prompt(roleInput).then((answers) => {
     employeePrompts(answers.jobPosition);
@@ -80,7 +85,7 @@ function employeePrompts(role) {
         fs.writeFileSync(outputPath, render(employees));
       } else {
         //End the questions, render the HTML
-        console.log("Finished");
+        console.log("Thank you for inputting employee info");
         console.log("employeeStorage", employees);
         console.log("totalEmployees", totalEmployees);
         fs.writeFileSync(outputPath, render(employees));
@@ -88,5 +93,6 @@ function employeePrompts(role) {
     });
 }
 
+//Call the prompts
 managerPrompt();
 module.exports = employees;
